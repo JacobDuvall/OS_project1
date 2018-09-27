@@ -1,0 +1,27 @@
+Project 0
+
+Name: Jacob Duvall
+
+Email address: jdaleduvall@gmail.com / jdaleduvall@ou.edu
+
+Date: 09/11/2018
+
+Description
+The first thing I do in my program is add the STDIN to a FILE pointer and create an array of size 255. 
+To solve the problem of printing ASCII values and their occurences, my program is structured using a 
+switch statement. This switch determines how many arugments are passed to the program. The options are 
+1, 2, or 3. Once this is determined, the code does nearly the same thing in all three cases, with some 
+minor differences. I enter a while loop to continue until EOF is reached. Until then, the count of ASCII 
+values are increased within an array. When the EOF is reached, the array is then printed to show the 
+number of times each ascii value occurs according to the project description. The file is then closed 
+and the switch statement is exited, thus ending the program. 
+
+The difficulties of solving the program mostly happened in the while loop for me. I was struggling to 
+collect null values because I was failing to realize that while(c = fgetc(fileInput) was returning a 0 
+value, and breaking my loop. Once I created an infinite loop, this problem was fixed.
+
+References
+I used GeeksforGeeks to understand the functions I could perform on the FILE pointer, primarily the 
+fgetc function (https://geeksforgeeks.org/fgetc-fputc-c/).
+
+
