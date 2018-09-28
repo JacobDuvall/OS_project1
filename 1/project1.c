@@ -81,7 +81,8 @@ int main (int argc, char ** argv)
 				}
 				if (!strcmp(args[0], "help"))
 				{
-					system("cat README");
+					system("cat /projects/1/README");
+					continue;
 				}
 				if (!strcmp(args[0], "mimic"))
 				{
@@ -101,19 +102,19 @@ int main (int argc, char ** argv)
 					if(args[1] == NULL)
 					{
 						getcwd(directory, sizeof(directory));
-						printf("%s\n", directory);
-						directory[0] = 0;	
+						fprintf(stdout, "%s\n", directory);
+						directory[0] = 0;
+						continue;	
 					}
 					else 
 					{
-						strcat(directory, "cd ");
+						chdir(args[1]);
+						strcat(directory, "HOME=");
 						strcat(directory, args[1]);
-						printf("%s\n", args[1]);
-						printf("%s\n", directory);
-						system(directory);
+						putenv(directory);
 						directory[0] = 0;
+						continue;
 					}
-					continue;
 				}
 				else
 				{
@@ -138,9 +139,9 @@ int main (int argc, char ** argv)
 						continue;
 					}
 				}
-				//arg = args;
-				//while (*arg) fprintf(stdout, "%s ", *arg++);
-				//fputs("\n", stdout);
+				arg = args;
+				while (*arg) fprintf(stdout, "%s ", *arg++);
+				fputs("\n", stdout);
 			}
 
 		}
