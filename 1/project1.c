@@ -9,6 +9,7 @@
 
 int main (int argc, char ** argv)
 {
+	setbuf(stdout, NULL);
 	char buf[MAX_BUFFER];
 	char * args[MAX_ARGS];
 	char ** arg;
@@ -16,6 +17,15 @@ int main (int argc, char ** argv)
 	extern char **environ;
 	char stringCat[1000];
 	char directory[1000];
+	FILE *file;
+	char characters;
+	FILE *old;
+	FILE *new;
+
+	if (argc > 1)
+	{
+		file = freopen(argv[1], "r", stdin);
+	}
 
 	while (!feof(stdin))
 	{
@@ -30,7 +40,7 @@ int main (int argc, char ** argv)
 
 				if (!strcmp(args[0], "wipe"))
 				{
-					system("clear");
+					popen("clear", "r");
 					continue;
 				}
 				
@@ -42,7 +52,7 @@ int main (int argc, char ** argv)
 				{
 					if (args[1] == NULL)
 					{
-						system("ls -1");
+						popen("ls -1", "r");
 						continue;
 					}
 					else
@@ -86,7 +96,27 @@ int main (int argc, char ** argv)
 				}
 				if (!strcmp(args[0], "mimic"))
 				{
+					old = fopen(args[1], "r");
+					if (old == NULL)
+					{
+						fprintf(stderr, "%s\n", "no file one");	
+						continue;
+					}
 					
+					new = fopen(args[2], "w");
+					if (new == NULL)
+					{
+						fprintf(stderr, "%s\n", "no file two");
+						continue;
+					}				
+
+					while ((characters = getc(old)) != EOF)
+					{
+						putc(characters, new);
+					}
+					fclose(old);
+					fclose(new);
+					continue;
 				}
 				if (!strcmp(args[0], "erase"))
 				{
@@ -95,7 +125,23 @@ int main (int argc, char ** argv)
 				}
 				if (!strcmp(args[0], "morph"))
 				{
+					if (args[1] == NULL)
+					{
+						fprintf(stderr, "%s\n", "no files");
+						continue;
+					}
 
+					old = fopen(args[1], "r");
+					new = fopen(args[2], "w");
+
+					while ((characters = getc(old)) != EOF)
+					{
+						putc(characters, new);
+					}
+					fclose(old);
+					fclose(new);
+					remove(args[1]);
+					continue;
 				}
 				if (!strcmp(args[0], "chdir"))
 				{
@@ -145,6 +191,10 @@ int main (int argc, char ** argv)
 			}
 
 		}
+	}
+	if (argc > 1)
+	{
+		fclose(file);
 	}
 	return 0;
 }
