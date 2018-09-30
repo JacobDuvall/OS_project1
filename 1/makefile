@@ -1,8 +1,5 @@
 all: project1
 
-run:
-	./project1
-
 clean:
 	rm project1
 

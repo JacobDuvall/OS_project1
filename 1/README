@@ -7,9 +7,56 @@ Email: jdaleduvall@gmail.com
 Date: September 27, 2018
 
 Description:
+My shell takes input from either stdin or a batchfile as an argument. To read the batchfile, I use freopen. To read stdin, I use feof with a while loop and parse the input with strtok. 
+
+To solve all the custom commmands, I tried a lot of things in the shell to see what does what. The system function is very helpful for a lot of the commands, but the rest are solved through sysyscalls. 
+
+One of the most helpful functions I found was the strcat function with concatenates strings. THis is helpful because the code is parsed to start with and a few of the commands require the code by concatenated before it is used.
+
+The mimic and morph commands both required me to read from and write to files. This was a new skill for me. After reading, I write to by coping each char individually to the write file. 
+
+If the custom commands do not exist, all other commands are parsed, concatenated, and passed to system to be redirected and made useful.
+
 
 Directions:
 
+Custom commands work as follows:
+
+wipe - invokes system("clear");
+
+esc - exits with 0 parameter to signify successful exit.
+
+filez - if there are no arguments, it calls system("ls -r"); else it prints the file.
+
+environ - steps through the environment while it exists and prints it out. 
+
+ditto - concatenates the string passed to it and then prints it.
+
+help - prints this README by calling system("cat /projects/1/README");
+
+mimic - copies the first file bit by bit and writes it to the second file.
+
+erase - removes the file passed to it.
+
+morph - copies the first file bit by bit and writes it to the second file, deleting the first.
+
+chdir - changes directory by calling the chdir function and then sets the environment to the new directory.
+
+All other shell commands are passed to the system() function to be invoked. 
+
 Bugs:
+I believe my stdin works mostly as required. But I have problems matching the expected output with a batchfile argument. 
 
 References:
+
+freopen() - https://www.tutorialspoint.com/c_standard_library/c_function_freopen.htmhttps://www.tutorialspoint.com/c_standard_library/c_function_freopen.htm
+
+strcat() - https://www.tutorialspoint.com/c_standard_library/c_function_strcat.htm
+
+open and write - https://www.tutorialspoint.com/cprogramming/c_file_io.htm
+
+putc - http://www.cplusplus.com/reference/cstdio/putc/
+
+fopen() - https://www.tutorialspoint.com/c_standard_library/c_function_fopen.htm
+
+getcwd() - http://pubs.opengroup.org/onlinepubs/009695399/functions/getcwd.html
